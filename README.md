@@ -1,2 +1,2 @@
-# Fanta Runner
- Endless runner for Fanta 
+# Bunnie Runner
+ Endless runner with Web Controller
