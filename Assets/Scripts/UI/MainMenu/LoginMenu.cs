@@ -2,6 +2,7 @@ using Source.Utils.Validations;
 using Source.Utils.Responses;
 using Source.DTOs.Response;
 using Source.DTOs.Request;
+using Source.Utils.JWT;
 using Source.Handlers;
 using UnityEngine.UI;
 using Source.Popups;
@@ -10,7 +11,6 @@ using Source.DTOs;
 using UnityREST;
 using UI.DTOs;
 using System;
-using Source.Utils.JWT;
 using TMPro;
 
 namespace UI.Views
@@ -33,8 +33,6 @@ namespace UI.Views
 
             // Buttons.Add(registerButton);
             Buttons.Add(sendButton);
-
-            SetPrefills();
         }
 
         public override void OnShow()
@@ -93,17 +91,6 @@ namespace UI.Views
             RestApiManager.Instance.SetAuthToken(response.data.data.token);
 
             OnLoginSuccess?.Invoke();
-        }
-
-        private void SetPrefills()
-        {
-            SaveUserInfoDto saveUserInfoDto = BaseHandler.SaveUserInfo;
-
-            if (saveUserInfoDto == null)
-                return;
-
-            emailInputField.text = saveUserInfoDto.email;
-            // passwordInputField.text = saveUserInfoDto.password;
         }
     }
 }
