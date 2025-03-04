@@ -22,7 +22,7 @@
     <type fullname="SimpleBarricade" preserve="all" />
     <type fullname="ThemeData" preserve="all" />
     <type fullname="TrackSegment" preserve="all" />
-    <type fullname="ThemeZone" preserve="nothing" serialized="true" />
+    <type fullname=".ThemeZone" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />

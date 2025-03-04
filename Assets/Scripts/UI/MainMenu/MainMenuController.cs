@@ -1,3 +1,4 @@
+using Source.Handlers;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine;
@@ -61,6 +62,12 @@ namespace UI.Controllers
             registerPanel.OnRegisterSuccess -= StartGame;
 
             SceneManager.LoadScene("Main");
+        }
+
+        [ContextMenu("ResetSaveGame")]
+        private void ResetSaveGame()
+        {
+            BaseHandler.ResetInfoFromPrefs();
         }
     }
 }

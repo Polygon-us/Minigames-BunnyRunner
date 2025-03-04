@@ -79,7 +79,8 @@ public class LoadoutState : AState
 
     public override void Enter(AState from)
     {
-        tutorialBlocker.SetActive(!PlayerData.instance.tutorialDone);
+        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
+        tutorialBlocker.SetActive(userInfoDto.tutorial);
         tutorialPrompt.SetActive(false);
 
         inventoryCanvas.gameObject.SetActive(true);
@@ -88,7 +89,6 @@ public class LoadoutState : AState
         charNameDisplay.text = "";
         themeNameDisplay.text = "";
 
-        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
         maxScoreTxt.text = userInfoDto.score.ToString();
         maxScoreTxt.text = userInfoDto.distance.ToString("N0");
         
@@ -405,7 +405,8 @@ public class LoadoutState : AState
 
     public void StartGame()
     {
-        if (PlayerData.instance.tutorialDone)
+	    SaveUserInfoDto saveUserInfoDto = BaseHandler.SaveUserInfo;
+        if (saveUserInfoDto.tutorial)
         {
             if (PlayerData.instance.ftueLevel == 1)
             {

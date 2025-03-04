@@ -558,7 +558,8 @@ public class TrackManager : MonoBehaviour
         newSegment.transform.position = pos;
         newSegment.manager = this;
 
-        newSegment.transform.localScale = new Vector3((Random.value > 0.5f ? -1 : 1), 1, 1);
+        //This line is to add a x=-1 scale to track modules
+        //newSegment.transform.localScale = new Vector3((Random.value > 0.5f ? -1 : 1), 1, 1);
         newSegment.objectRoot.localScale = new Vector3(1.0f / newSegment.transform.localScale.x, 1, 1);
 
         if (m_SafeSegementLeft <= 0)
