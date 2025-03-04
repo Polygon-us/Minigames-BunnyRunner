@@ -93,6 +93,8 @@ public class GameState : AState
 
     private LeaderboardHandler _leaderboardHandler;
     
+    private bool isPaused = false;
+    
     public override void Enter(AState from)
     {
         m_CountdownRectTransform = countdownText.GetComponent<RectTransform>();
@@ -146,7 +148,8 @@ public class GameState : AState
 
         currentModifier.OnRunStart(this);
 
-        m_IsTutorial = !PlayerData.instance.tutorialDone;
+        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
+        m_IsTutorial = userInfoDto.tutorial;
         trackManager.isTutorial = m_IsTutorial;
         
         pauseButton.gameObject.SetActive(!m_IsTutorial);
@@ -311,11 +314,11 @@ public class GameState : AState
     public void Pause(bool displayMenu = true)
 	{
 		//check if we aren't finished OR if we aren't already in pause (as that would mess states)
-		if (m_Finished || AudioListener.pause == true)
+		if (m_Finished || isPaused)
 			return;
 
-		AudioListener.pause = true;
 		Time.timeScale = 0;
+        isPaused = true;
 
 		pauseButton.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive (displayMenu);
@@ -335,14 +338,14 @@ public class GameState : AState
 			trackManager.StartMove(false);
 		}
 
-		AudioListener.pause = false;
+        isPaused = false;
 	}
 
 	public void QuitToLoadout()
 	{
 		// Used by the pause menu to return immediately to loadout, canceling everything.
 		Time.timeScale = 1.0f;
-		AudioListener.pause = false;
+        isPaused = false;
         
 		trackManager.End();
 		trackManager.isRerun = false;
@@ -564,7 +567,7 @@ public class GameState : AState
         if (trackManager.segments.Count == 0)
             return;
 
-        if (AudioListener.pause && !trackManager.characterController.tutorialWaitingForValidation)
+        if (isPaused && !trackManager.characterController.tutorialWaitingForValidation)
         {
             m_DisplayTutorial = false;
             DisplayTutorial(false);
@@ -641,7 +644,16 @@ public class GameState : AState
 
     public void FinishTutorial()
     {
-        PlayerData.instance.tutorialDone = true;
+        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
+        BaseHandler.SaveInfoToPrefs
+        (
+            userInfoDto.username,
+            userInfoDto.email,
+            userInfoDto.score,
+            userInfoDto.distance,
+            false
+        );
+
         PlayerData.instance.Save();
 
         QuitToLoadout();

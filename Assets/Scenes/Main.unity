@@ -1450,7 +1450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2094493432}
   koParticle: {fileID: 2038194883}
-  coinSound: {fileID: 8300000, guid: cbeabf178200c724e96e89d2a20b0a28, type: 3}
+  coinSound: {fileID: 8300000, guid: 0c41cd724df2c4949af4a71cc80f2463, type: 3}
   premiumSound: {fileID: 8300000, guid: 553f1d03da54003479f6ff63d3155919, type: 3}
   magnetCoins: []
 --- !u!82 &1144878500
@@ -1973,6 +1973,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 997630276980775211, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.236472
+      objectReference: {fileID: 0}
+    - target: {fileID: 997630276980775211, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.236472
+      objectReference: {fileID: 0}
+    - target: {fileID: 997630276980775211, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.236472
+      objectReference: {fileID: 0}
+    - target: {fileID: 997630276980775211, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 42
+      objectReference: {fileID: 0}
     - target: {fileID: 1108222240017336094, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2020,6 +2040,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2992644471550809906, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992644471550809906, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2041,6 +2066,11 @@ PrefabInstance:
     - target: {fileID: 3099527767547049512, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099527767547049512, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3099527767547049512, guid: cf06bc0cfbd054b4b8fb9c8b823c2daa,

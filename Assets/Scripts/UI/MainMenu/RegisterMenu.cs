@@ -89,7 +89,7 @@ namespace UI.Views
             }
             else
             {
-                BaseHandler.SaveInfoToPrefs(usernameInputField.text, emailInputField.text, 0, 0/*, passwordInputField.text*/);
+                BaseHandler.SaveInfoToPrefs(usernameInputField.text, emailInputField.text, 0, 0, true/*, passwordInputField.text*/);
 
                 RestApiManager.Instance.SetAuthToken(response.data.data.token);
 
