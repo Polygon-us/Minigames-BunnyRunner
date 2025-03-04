@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BunnySpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 192d168c5ff6f17439f2bd7423bffe6b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - aa0399b3046dfc743820b97ff995a4f8: 21300000
+    - f093e00b1a5e4e64da93999c55374670: 21300000
+    - a69ac6ed86f872d44b47168fb6d91c20: 21300000
+    - 9cfb44ae4eab13248b2bb3f4bb0fd156: 6512418002790299847
+    - 4a9716ae9cda2514ebc8147607e98b9d: 21300000
+    - e76b8a0f968d7c94299451d954b39f55: 21300000
+    - 66cfc7df561fe124aa3873b3255d838f: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: aa0399b3046dfc743820b97ff995a4f8, type: 3}
+  - {fileID: 21300000, guid: f093e00b1a5e4e64da93999c55374670, type: 3}
+  - {fileID: 21300000, guid: a69ac6ed86f872d44b47168fb6d91c20, type: 3}
+  - {fileID: 6512418002790299847, guid: 9cfb44ae4eab13248b2bb3f4bb0fd156, type: 3}
+  - {fileID: 21300000, guid: 4a9716ae9cda2514ebc8147607e98b9d, type: 3}
+  - {fileID: 21300000, guid: e76b8a0f968d7c94299451d954b39f55, type: 3}
+  - {fileID: 21300000, guid: 66cfc7df561fe124aa3873b3255d838f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - T_RoundedCorner
+  - T_BunnyRunnerTitle
+  - T_LockClosed
+  - T_BackgroundGradient_0
+  - T_QR
+  - T_PrimaryButton
+  - T_EmailIcon
+  m_RenderDataMap: {}
+  m_Tag: BunnySpriteAtlas
+  m_IsVariant: 0
