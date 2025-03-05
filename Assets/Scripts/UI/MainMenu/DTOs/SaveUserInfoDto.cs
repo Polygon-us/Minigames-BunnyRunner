@@ -9,6 +9,7 @@ namespace UI.DTOs
         public string email;
         public int score;
         public int distance;
+        public bool tutorial;
         // public string password;
     }
 }

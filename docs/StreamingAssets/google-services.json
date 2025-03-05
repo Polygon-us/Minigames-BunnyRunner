@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "181429508314",
+    "firebase_url": "https://polygonus-fantarunner-default-rtdb.firebaseio.com",
+    "project_id": "polygonus-fantarunner",
+    "storage_bucket": "polygonus-fantarunner.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181429508314:android:8a34775f6c33d3d5cfade3",
+        "android_client_info": {
+          "package_name": "com.polygonus.fantarunner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPIzaOcnGxnaoVJHFjRMUgUwburi3cDvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
