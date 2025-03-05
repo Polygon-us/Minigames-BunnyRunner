@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bf43c79f6bad84784689f6386c2e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactedSound: {fileID: 8300000, guid: 9ed08397b3fef21418662ed63130d301, type: 3}
+  impactedSound: {fileID: 8300000, guid: 44037a6235f090d49b086254d1238970, type: 3}
 --- !u!65 &65000010890707780
 BoxCollider:
   m_ObjectHideFlags: 0
