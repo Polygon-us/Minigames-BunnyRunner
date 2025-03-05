@@ -69,6 +69,8 @@ public class LoadoutState : AState
             // We reset the modifier to a default one, for next run (if a new modifier is applied, it will replace this default one before the run starts)
 			m_CurrentModifier = new Modifier();
         }
+        
+        gameObject.SetActive(false);
     }
 
     public void Refresh()
