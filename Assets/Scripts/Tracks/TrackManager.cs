@@ -605,12 +605,12 @@ public class TrackManager : MonoBehaviour
     {
         if (!m_IsTutorial)
         {
-            const float increment = 1.5f;
+            const float increment = 3.0f;
             float currentWorldPos = 0.0f;
             int currentLane = Random.Range(0, 3);
 
-            float powerupChance = Mathf.Clamp01(Mathf.Floor(m_TimeSincePowerup) * 1); ////////******************************TESTING: increase the chance of powerup
-            //float powerupChance = Mathf.Clamp01(Mathf.Floor(m_TimeSincePowerup) * 0.5f * 0.001f);
+            //float powerupChance = Mathf.Clamp01(Mathf.Floor(m_TimeSincePowerup) * 1); ////////******************************TESTING: increase the chance of powerup
+            float powerupChance = Mathf.Clamp01(Mathf.Floor(m_TimeSincePowerup) * 0.5f * 0.001f);
             
             float premiumChance = Mathf.Clamp01(Mathf.Floor(m_TimeSinceLastPremium) * 0.5f * 0.0001f);
 
