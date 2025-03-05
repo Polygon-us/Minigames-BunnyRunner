@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5c8354a04ad00a49a72dfc1a516a9cc
+guid: 24a63136591ab1b4ebcdae3b0a2ab838
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Rammetto One
+  - Roboto
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
