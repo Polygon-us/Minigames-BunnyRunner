@@ -664,27 +664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  inventoryCanvas: {fileID: 3032166925804055671}
-  charNameDisplay: {fileID: 2631162442297175678}
   charSelect: {fileID: 8208005305292476324}
   charPosition: {fileID: 0}
-  themeNameDisplay: {fileID: 0}
-  themeSelect: {fileID: 0}
-  themeIcon: {fileID: 0}
-  powerupSelect: {fileID: 0}
-  powerupIcon: {fileID: 0}
-  powerupCount: {fileID: 0}
-  noItemIcon: {fileID: 21300070, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
-  accessoriesSelector: {fileID: 0}
-  accesoryNameDisplay: {fileID: 0}
-  accessoryIconDisplay: {fileID: 0}
-  leaderboard: {fileID: 0}
-  missionPopup: {fileID: 0}
-  runButton: {fileID: 0}
-  tutorialBlocker: {fileID: 0}
-  tutorialPrompt: {fileID: 0}
-  skyMeshFilter: {fileID: 0}
-  UIGroundFilter: {fileID: 0}
   menuTheme: {fileID: 8300000, guid: 8ca430765ec1e2148a3d9dd20c3b4052, type: 3}
   maxScoreTxt: {fileID: 0}
   maxDistanceTxt: {fileID: 0}
@@ -798,7 +779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 102.19}
+  m_AnchoredPosition: {x: 0, y: 70}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5706055183010277894
@@ -1176,8 +1157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 69}
-  m_SizeDelta: {x: 512, y: 1024}
+  m_AnchoredPosition: {x: 0, y: 131}
+  m_SizeDelta: {x: 358.4, y: 716.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8064859457186600665
 CanvasRenderer:
