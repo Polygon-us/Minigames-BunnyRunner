@@ -70,7 +70,8 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b3f82c81c2f00c64d9eb1c5a7011eee7, type: 2}
-  m_sharedMaterial: {fileID: -345954534709107787, guid: b3f82c81c2f00c64d9eb1c5a7011eee7, type: 2}
+  m_sharedMaterial: {fileID: -345954534709107787, guid: b3f82c81c2f00c64d9eb1c5a7011eee7,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -281,9 +282,10 @@ AudioSource:
   m_GameObject: {fileID: 6187840893604311721}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243000010075535018, guid: 3b7e99a6684bf49fa9bad5f4bb585fab, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 89acdb637cc78c5418652a27c65514ba, type: 3}
+  OutputAudioMixerGroup: {fileID: 243000010075535018, guid: 3b7e99a6684bf49fa9bad5f4bb585fab,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 10e884b6be0b40d4ba109a523b5ff74e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 10e884b6be0b40d4ba109a523b5ff74e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

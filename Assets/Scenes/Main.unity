@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2094493432}
   koParticle: {fileID: 2038194883}
-  coinSound: {fileID: 8300000, guid: 0c41cd724df2c4949af4a71cc80f2463, type: 3}
+  coinSound: {fileID: 8300000, guid: 86d6f0ff17e7cb145b39d2320c3fa7ee, type: 3}
   premiumSound: {fileID: 8300000, guid: 553f1d03da54003479f6ff63d3155919, type: 3}
   magnetCoins: []
 --- !u!82 &1144878500
@@ -9355,8 +9355,8 @@ MonoBehaviour:
   jumpLength: 6
   jumpHeight: 1.2
   slideLength: 7
-  slideSound: {fileID: 8300000, guid: febd5a5a8b245774fbfa9f0bef51e0b6, type: 3}
-  powerUpUseSound: {fileID: 8300000, guid: defdb98bfddc24748aead1ce73ba7972, type: 3}
+  slideSound: {fileID: 8300000, guid: 842f42023163f694185211e3315a8076, type: 3}
+  powerUpUseSound: {fileID: 8300000, guid: 683675a9585ef9048a1ca3f82ef46828, type: 3}
   powerupSource: {fileID: 2094493435}
   currentTutorialLevel: 0
   tutorialWaitingForValidation: 0
