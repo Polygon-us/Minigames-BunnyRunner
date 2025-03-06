@@ -84,16 +84,5 @@ namespace FirebaseCore.Listeners
             Reference.ChildChanged -= HandleChildChanged;
         }
 #endif
-
-        protected static T ConvertTo<T>(Dictionary<string, object> data)
-        {
-            return ConvertTo<T>(JsonConvert.SerializeObject(data));
-        }
-        
-        protected static T ConvertTo<T>(string obj)
-        {
-            return JsonConvert.DeserializeObject<T>(obj);
-        }
-
     }
 }

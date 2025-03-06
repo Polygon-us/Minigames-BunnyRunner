@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Firebase.Extensions;
 
 #if FIREBASE_WEB
@@ -15,12 +16,12 @@ using Firebase.Database;
 
 namespace FirebaseCore.Senders
 {
-    public abstract class FirebaseReader<T>
+    public abstract class FirebaseReader<TDto>
     {
         protected readonly string Room;
         protected abstract string ChildName { get; set; }
 
-        public Action<T> OnDataReceived;
+        public Action<TDto> OnDataReceived;
         
 #if FIREBASE_WEB
         protected FirebaseReader(string room)
@@ -62,16 +63,8 @@ namespace FirebaseCore.Senders
         {
             Reference = FirebaseDatabase.DefaultInstance.GetReference(Room).Child(ChildName);
         }
-        
-        public void Read()
-        {
-            Reference.GetValueAsync().ContinueWithOnMainThread(request =>
-            {   
-                OnDataReceived.Invoke((T)request.Result.Value);
-            });
-        }
+
+        public abstract void Read();
 #endif
-
-
     }
 }

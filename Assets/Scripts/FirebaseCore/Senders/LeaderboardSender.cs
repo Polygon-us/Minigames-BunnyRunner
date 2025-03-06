@@ -1,5 +1,6 @@
 using Firebase.Extensions;
 using FirebaseCore.DTOs;
+using FirebaseCore.Utils;
 using Newtonsoft.Json;
 
 #if FIREBASE_WEB
@@ -31,8 +32,7 @@ namespace FirebaseCore.Senders
         {
             Reference.GetValueAsync().ContinueWithOnMainThread(task =>
             {
-                List<LeaderboardDto> data =
-                    JsonConvert.DeserializeObject<List<LeaderboardDto>>(JsonConvert.SerializeObject(task.Result.Value));
+                List<LeaderboardDto> data = task.Result.Value.ConvertTo<List<LeaderboardDto>>();
                 
                 int index = data.FindIndex(entry => entry.username == leaderboardDto.username);
                 

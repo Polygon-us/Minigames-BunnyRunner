@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using Firebase.Extensions;
 using FirebaseCore.DTOs;
+using FirebaseCore.Utils;
 
 namespace FirebaseCore.Senders
 {
@@ -11,5 +14,16 @@ namespace FirebaseCore.Senders
         {
         }
 
+        public override void Read()
+        {
+            Reference.GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                List<LeaderboardDto> data = task.Result.Value.ConvertTo<List<LeaderboardDto>>();
+                
+                data = data.OrderByDescending(entry => entry.score).ToList();
+                
+                OnDataReceived.Invoke(data);
+            });
+        }
     }
 }
