@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "8042b29ff87dd5506d7aad72bd6d8d7405985f27"
     },
+    "com.modernwestern.library": {
+      "version": "https://github.com/ModernWestern/unity.modernwestern.library-package.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1f0d7844f4d6b0b3cce92c304f74bd16703d886e"
+    },
     "com.modernwestern.unity-rest": {
       "version": "https://github.com/ModernWestern/unity.modernwestern.unity-rest-package.git",
       "depth": 0,
