@@ -3,10 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using Source.DTOs.Request;
-using Source.Handlers;
+using FirebaseCore.DTOs;
+using FirebaseCore.Senders;
 using TMPro;
-using UI.DTOs;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -91,7 +90,7 @@ public class GameState : AState
     protected TrackSegment m_NextValidSegment = null;
     protected int k_ObstacleToClear = 3;
 
-    private LeaderboardHandler _leaderboardHandler;
+    private LeaderboardSender _leaderboardSender;
     
     private bool isPaused = false;
     
@@ -99,7 +98,7 @@ public class GameState : AState
     {
         m_CountdownRectTransform = countdownText.GetComponent<RectTransform>();
 
-        _leaderboardHandler = new LeaderboardHandler();
+        _leaderboardSender = new LeaderboardSender(roomConfig.roomName);
         
         m_LifeHearts = new Image[k_MaxLives];
         for (int i = 0; i < k_MaxLives; ++i)
@@ -181,13 +180,6 @@ public class GameState : AState
                     tutorialValidatedObstacles.text = $"{m_TutorialClearedObstacle}/{k_ObstacleToClear}";
                 }
             };
-        }
-        else
-        {
-            SessionHandler.StartRun(result =>
-            {
-                trackManager.CurrenDate = result.data.data.startDate;
-            });
         }
 
         m_Finished = false;
@@ -400,12 +392,10 @@ public class GameState : AState
 	{
 		m_Finished = true;
 		trackManager.StopMove();
-
-        trackManager.AddCheckpoint();
         
         StartCoroutine(MusicPlayer.instance.FadeoutStems());
         
-        TrySendLeaderboard();
+        SendLeaderboard();
         
         // Reseting the global blinking value. Can happen if game unexpectly exited while still blinking
         Shader.SetGlobalFloat("_BlinkingValue", 0.0f);
@@ -420,24 +410,15 @@ public class GameState : AState
         }
 	}
     
-    private void TrySendLeaderboard()
+    private void SendLeaderboard()
     {
-        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
-        
-        // Don't send if not record
-        if (trackManager.score < userInfoDto.score)
-            return;
-        
-        RankingDto rankingDto = new RankingDto
+        LeaderboardDto rankingDto = new LeaderboardDto
         {
             score = trackManager.score,
-            distance = (int)trackManager.worldDistance
+            username = roomConfig.username
         };
 
-        _leaderboardHandler.PostRanking(rankingDto, _ =>
-        {
-            SessionHandler.SendCheckpoints(trackManager.CheckpointTimeline);
-        });
+        _leaderboardSender.Send(rankingDto);
     }
 
     protected void ClearPowerup()
@@ -638,23 +619,5 @@ public class GameState : AState
             default:
                 break;
         }
-    }
-
-
-    public void FinishTutorial()
-    {
-        SaveUserInfoDto userInfoDto = BaseHandler.SaveUserInfo;
-        BaseHandler.SaveInfoToPrefs
-        (
-            userInfoDto.username,
-            userInfoDto.email,
-            userInfoDto.score,
-            userInfoDto.distance,
-            false
-        );
-
-        PlayerData.instance.Save();
-
-        QuitToLoadout();
     }
 }

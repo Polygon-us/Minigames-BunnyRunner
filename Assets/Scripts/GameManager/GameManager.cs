@@ -9,6 +9,7 @@ using UnityEngine.Analytics;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private RoomConfig roomConfig;
     static public GameManager instance { get { return s_Instance; } }
     static protected GameManager s_Instance;
 
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < states.Length; ++i)
         {
             states[i].manager = this;
+            states[i].roomConfig = roomConfig;
             m_StateDict.Add(states[i].GetName(), states[i]);
         }
 
@@ -134,6 +136,8 @@ public abstract class AState : MonoBehaviour
 {
     [HideInInspector]
     public GameManager manager;
+    
+    public RoomConfig roomConfig;
 
     public abstract void Enter(AState from);
     public abstract void Exit(AState to);

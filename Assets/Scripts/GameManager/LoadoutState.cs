@@ -1,12 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using Source.Handlers;
-using TMPro;
-using UI.DTOs;
+﻿using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// State pushed on the GameManager during the Loadout, when player select player, theme and accessories
@@ -19,11 +15,7 @@ public class LoadoutState : AState
 	public Transform charPosition;
 	
 	public AudioClip menuTheme;
-
-	[Header("Settings")] 
-	[SerializeField] private TMP_Text maxScoreTxt;
-	[SerializeField] private TMP_Text maxDistanceTxt;
-
+    
     [Header("Prefabs")]
     public ConsumableIcon consumableIcon;
 
@@ -170,16 +162,6 @@ public class LoadoutState : AState
 
     public void StartGame()
     {
-	    SaveUserInfoDto saveUserInfoDto = BaseHandler.SaveUserInfo;
-        if (saveUserInfoDto.tutorial)
-        {
-            if (PlayerData.instance.ftueLevel == 1)
-            {
-                PlayerData.instance.ftueLevel = 2;
-                PlayerData.instance.Save();
-            }
-        }
-
         LeanTween.delayedCall(0.3f,
 	        () => manager.SwitchState("Game")
 	    );

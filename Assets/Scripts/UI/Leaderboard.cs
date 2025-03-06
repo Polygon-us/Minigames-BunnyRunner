@@ -1,32 +1,31 @@
 ﻿using System.Collections.Generic;
-using Source.DTOs.Response;
-using Source.Handlers;
 using System.Linq;
-using Source.DTOs;
+using Cysharp.Threading.Tasks;
+using FirebaseCore.DTOs;
+using FirebaseCore.Senders;
 using UnityEngine;
-using UnityREST;
 
 // Prefill the info on the player data, as they will be used to populate the leadboard.
 public class Leaderboard : MonoBehaviour
 {
+    [SerializeField] private RoomConfig roomConfig;
+    
     public RectTransform entriesRoot;
 
     public HighscoreUI playerEntry;
 
-    private List<PlayerRankingResponseDto> _records;
+    private List<LeaderboardDto> _records;
 
-    private LeaderboardHandler _leaderboardHandler;
-    
-    private void Awake()
-    {
-        _leaderboardHandler = new LeaderboardHandler();
-    }
-
+    private LeaderboardReader _leaderboardReader;
+ 
     public void Open()
     {
         gameObject.SetActive(true);
 
-        Populate();
+        _leaderboardReader = new LeaderboardReader(roomConfig.roomName);
+        _leaderboardReader.OnDataReceived += OnDataReceived;
+        
+        Populate().Forget();
     }
 
     public void Close()
@@ -34,25 +33,30 @@ public class Leaderboard : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Populate()
+    public async UniTaskVoid Populate()
     {
         for (int i = 0; i < entriesRoot.childCount; ++i)
         {
             entriesRoot.GetChild(i).gameObject.SetActive(false);
         }
 
-        _leaderboardHandler.GetRanking(OnLeaderboardResponse);
+        _leaderboardReader.Read();
     }
     
-    private void OnLeaderboardResponse(WebResult<ResponseDto<RankingResponseDto>> response)
+    private void OnDataReceived(LeaderboardListDto data)
     {
-        _records = response.data.data.global.ToList();
+        _leaderboardReader.OnDataReceived -= OnDataReceived;
 
-        PlayerRankingResponseDto playerRecord = response.data.data.player;
+        _records = data.records;
+        _records = _records.OrderByDescending(x => x.score).ToList();
 
-        if (playerRecord != null)
+        int index = data.records.FindIndex(record => record.username == roomConfig.username);
+
+        if (index != -1)
         {
-            int playerPlace = playerRecord.rank;
+            LeaderboardDto playerRecord = _records.FirstOrDefault();
+            int playerPlace = index;
+            
             int lastIndex = Mathf.Min(entriesRoot.childCount, playerPlace) - 1;
             
             playerEntry.transform.SetSiblingIndex(lastIndex);
@@ -67,7 +71,7 @@ public class Leaderboard : MonoBehaviour
             
             hs.gameObject.SetActive(true);
 
-            hs.Initialize(_records[i]);
+            hs.Initialize(i + 1, _records[i]);
         }
     }
 }

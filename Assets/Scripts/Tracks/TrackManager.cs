@@ -1,15 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Med.SafeValue;
-using Source.DTOs.Request;
-using Source.Handlers;
-using Source.Utils.Date;
-using UnityEditor;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Analytics;
-using UnityEngine.ResourceManagement;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using GameObject = UnityEngine.GameObject;
 using Random = UnityEngine.Random;
@@ -90,10 +83,6 @@ public class TrackManager : MonoBehaviour
     public bool isLoaded { get; set; }
     //used by the obstacle spawning code in the tutorial, as it need to spawn the 1st obstacle in the middle lane
     public bool firstObstacle { get; set; }
-
-    public CheckpointTimeline CheckpointTimeline => _checkpointTimeline;
-    
-    public Date CurrenDate { get; set; }
     
     protected float m_TimeToStart = -1.0f;
 
@@ -127,8 +116,6 @@ public class TrackManager : MonoBehaviour
     protected bool m_IsTutorial; //Tutorial is a special run that don't chance section until the tutorial step is "validated" by the TutorialState.
     
     Vector3 m_CameraOriginalPos = Vector3.zero;
-
-    private CheckpointTimeline _checkpointTimeline = new ();
     
     const float k_FloatingOriginThreshold = 10000f;
 
@@ -283,7 +270,6 @@ public class TrackManager : MonoBehaviour
 
         m_Segments.Clear();
         m_PastSegments.Clear();
-        _checkpointTimeline.metadata.Clear();
         
         characterController.End();
 
@@ -371,8 +357,6 @@ public class TrackManager : MonoBehaviour
             m_Segments.RemoveAt(0);
             _spawnedSegments--;
 
-            AddCheckpoint();
-            
             if (currentSegementChanged != null) currentSegementChanged.Invoke(m_Segments[0]);
         }
 
@@ -486,19 +470,6 @@ public class TrackManager : MonoBehaviour
         MusicPlayer.instance.UpdateVolumes(speedRatio);
     }
 
-    public void AddCheckpoint()
-    {
-        if (isTutorial || CurrenDate == null)
-            return;
-        
-        _checkpointTimeline.metadata.Add(new CheckpointDto
-        {
-            score = score,
-            distance = (int)worldDistance,
-            date = CurrenDate.ToString()
-        });
-    }
-    
     public void PowerupSpawnUpdate()
     {
         m_TimeSincePowerup += Time.deltaTime;

@@ -1,4 +1,4 @@
-﻿using FirebaseCore.DTOs;
+using FirebaseCore.DTOs;
 using Newtonsoft.Json;
 
 #if FIREBASE_WEB
@@ -10,23 +10,23 @@ using Firebase.Database;
 
 namespace FirebaseCore.Senders
 {
-    public class GameStateSender : FirebaseSender<GameStateDto>
+    public class LeaderboardSender : FirebaseSender<LeaderboardDto>
     {
         protected override string ChildName { get; set; } = "gameState";
 
-        public GameStateSender(string room) : base(room)
+        public LeaderboardSender(string room) : base(room)
         {
         }
 
 #if FIREBASE_WEB  
-        public override void Send(GameStateDto stateDto)
+        public override void Send(LeaderboardDto leaderboardDto)
         {
-            Send(JsonConvert.SerializeObject(stateDto));
+            Send(JsonConvert.SerializeObject(leaderboardDto));
         }
 #else
-        public override void Send(GameStateDto stateDto)
+        public override void Send(LeaderboardDto leaderboardDto)
         {
-            string json = JsonConvert.SerializeObject(stateDto);
+            string json = JsonConvert.SerializeObject(leaderboardDto);
             Reference.SetRawJsonValueAsync(json);
         }
 #endif
