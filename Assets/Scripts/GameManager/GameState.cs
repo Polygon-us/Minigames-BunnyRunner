@@ -91,6 +91,7 @@ public class GameState : AState
     protected int k_ObstacleToClear = 3;
 
     private LeaderboardSender _leaderboardSender;
+    private GameStateSender _gameStateSender;
     
     private bool isPaused = false;
     
@@ -99,6 +100,7 @@ public class GameState : AState
         m_CountdownRectTransform = countdownText.GetComponent<RectTransform>();
 
         _leaderboardSender = new LeaderboardSender(roomConfig.roomName);
+        _gameStateSender = new GameStateSender(roomConfig.roomName);
         
         m_LifeHearts = new Image[k_MaxLives];
         for (int i = 0; i < k_MaxLives; ++i)
@@ -341,7 +343,6 @@ public class GameState : AState
 		trackManager.End();
 		trackManager.isRerun = false;
         PlayerData.instance.Save();
-		manager.SwitchState ("Loadout");
 	}
 
     protected void UpdateUI()
@@ -403,10 +404,7 @@ public class GameState : AState
         yield return new WaitForSeconds(2.0f);
         if (currentModifier.OnRunEnd(this))
         {
-            if (trackManager.isRerun)
-                manager.SwitchState("GameOver");
-            else
-                OpenGameOverPopup();
+            OpenGameOverPopup();
         }
 	}
     
@@ -443,12 +441,8 @@ public class GameState : AState
         ClearPowerup();
 
         // gameOverPopup.SetActive(true);
-        GameOver();
-    }
-
-    public void GameOver()
-    {
-        manager.SwitchState("GameOver");
+        
+        _gameStateSender.Send(new GameStateDto{state = GameStates.End});
     }
 
     public void PremiumForLife()
@@ -506,7 +500,6 @@ public class GameState : AState
 #endif
         }
 #else
-		GameOver();
 #endif
     }
 

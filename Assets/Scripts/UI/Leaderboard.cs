@@ -43,14 +43,14 @@ public class Leaderboard : MonoBehaviour
         _leaderboardReader.Read();
     }
     
-    private void OnDataReceived(LeaderboardListDto data)
+    private void OnDataReceived(List<LeaderboardDto> data)
     {
         _leaderboardReader.OnDataReceived -= OnDataReceived;
 
-        _records = data.records;
+        _records = data;
         _records = _records.OrderByDescending(x => x.score).ToList();
 
-        int index = data.records.FindIndex(record => record.username == roomConfig.username);
+        int index = data.FindIndex(record => record.username == roomConfig.username);
 
         if (index != -1)
         {

@@ -69,7 +69,7 @@ namespace FirebaseCore.Listeners
 
         private void ListenToChanges()
         {
-            // Reference.ChildAdded += HandleChildChanged;
+            Reference.ChildAdded += HandleChildChanged;
             Reference.ChildChanged += HandleChildChanged;
         }
 
@@ -80,7 +80,7 @@ namespace FirebaseCore.Listeners
             if (Reference == null)
                 return;
             
-            // Reference.ChildAdded -= HandleChildChanged;
+            Reference.ChildAdded -= HandleChildChanged;
             Reference.ChildChanged -= HandleChildChanged;
         }
 #endif

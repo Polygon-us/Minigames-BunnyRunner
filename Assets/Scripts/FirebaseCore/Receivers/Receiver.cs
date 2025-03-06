@@ -10,11 +10,15 @@ namespace FirebaseCore.Receivers
         public string SuccessCallback => nameof(OnRequestSuccess);
         public string FailCallback => nameof(OnRequestFail);
         
+        public string DataFetchedCallback => nameof(OnDataFetched);
+        
         public string ChildChangedCallback => nameof(OnChildChanged);
         public string ChildAddedCallback => nameof(OnChildAdded);
 
         public Action<string> ChildAdded;
         public Action<string> ChildChanged;
+
+        public Action<string> DataFetched;
         
         private void OnRequestSuccess(string message)
         {
@@ -25,6 +29,8 @@ namespace FirebaseCore.Receivers
         {
             Debug.LogError(message);
         }
+        
+        private void OnDataFetched(string data) => DataFetched?.Invoke(data);
 
         private void OnChildChanged(string data) => ChildChanged?.Invoke(data);
 

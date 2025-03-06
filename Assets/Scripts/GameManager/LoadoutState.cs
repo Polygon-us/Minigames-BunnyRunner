@@ -2,6 +2,8 @@
 using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using System.Collections;
+using FirebaseCore.DTOs;
+using FirebaseCore.Listeners;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +13,8 @@ using UnityEngine;
 public class LoadoutState : AState
 {
     [Header("Char UI")]
+    public Canvas canvas;
+
 	public RectTransform charSelect;
 	public Transform charPosition;
 	
@@ -30,10 +34,17 @@ public class LoadoutState : AState
     protected int k_UILayer;
     protected readonly Quaternion k_FlippedYAxisRotation = Quaternion.Euler (0f, 180f, 0f);
 
+    private UserListener userListener;
+    
     public override void Enter(AState from)
     {
+        canvas.gameObject.SetActive(true);
+        
         k_UILayer = LayerMask.NameToLayer("UI");
 
+        userListener = new UserListener(roomConfig.roomName);
+        userListener.OnDataReceived += OnDataReceived;
+        
         // Reseting the global blinking value. Can happen if the game unexpectedly exited while still blinking
         Shader.SetGlobalFloat("_BlinkingValue", 0.0f);
 
@@ -46,8 +57,15 @@ public class LoadoutState : AState
         Refresh();
     }
 
+    private void OnDataReceived(UserDataDto userData)
+    {
+        roomConfig.username = userData.username;
+    }
+
     public override void Exit(AState to)
     {
+        userListener.Disconnect();
+        
         if (m_Character)
 	        // Addressables.ReleaseInstance(m_Character);
 			m_Character.gameObject.SetActive(false);
@@ -158,13 +176,6 @@ public class LoadoutState : AState
     {
         Character c = m_Character.GetComponent<Character>();
         c.SetupAccesory(PlayerData.instance.usedAccessory);
-    }
-
-    public void StartGame()
-    {
-        LeanTween.delayedCall(0.3f,
-	        () => manager.SwitchState("Game")
-	    );
     }
 
 }

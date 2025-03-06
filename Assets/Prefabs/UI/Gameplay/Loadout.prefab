@@ -664,6 +664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
+  roomConfig: {fileID: 0}
+  canvas: {fileID: 3032166925804055671}
   charSelect: {fileID: 8208005305292476324}
   charPosition: {fileID: 0}
   menuTheme: {fileID: 8300000, guid: 8ca430765ec1e2148a3d9dd20c3b4052, type: 3}

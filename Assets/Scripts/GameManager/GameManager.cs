@@ -9,7 +9,6 @@ using UnityEngine.Analytics;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private RoomConfig roomConfig;
     static public GameManager instance { get { return s_Instance; } }
     static protected GameManager s_Instance;
 
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour
     protected List<AState> m_StateStack = new List<AState>();
     protected Dictionary<string, AState> m_StateDict = new Dictionary<string, AState>();
 
-    protected void OnEnable()
+    public void Initialize(RoomConfig roomConfig)
     {
         PlayerData.Create();
 
@@ -79,11 +78,17 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Can't find the state named " + newState);
             return;
         }
+        
+        if (m_StateStack[^1] == state)
+            return;
 
-        m_StateStack[m_StateStack.Count - 1].Exit(state);
-        state.Enter(m_StateStack[m_StateStack.Count - 1]);
-        m_StateStack.RemoveAt(m_StateStack.Count - 1);
-        m_StateStack.Add(state);
+        m_StateStack[^1].Exit(state);
+        if (m_StateStack != null)
+        {
+            state.Enter(m_StateStack[^1]);
+            m_StateStack.RemoveAt(m_StateStack.Count - 1);
+            m_StateStack.Add(state);
+        }
     }
 
 	public AState FindState(string stateName)

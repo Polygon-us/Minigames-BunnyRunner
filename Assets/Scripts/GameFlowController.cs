@@ -21,12 +21,13 @@ public class GameFlowController : MonoBehaviour
 
         gameStateListener.OnDataReceived += OnStateChanged;
 
-        GameStateDto gameStateDto = new GameStateDto
-        {
-            state = GameStates.Register
-        };
-            
-        gameStateSender.Send(gameStateDto);
+        gameManager.Initialize(roomConfig);
+        // GameStateDto gameStateDto = new GameStateDto
+        // {
+        //     state = GameStates.Register
+        // };
+        //     
+        // gameStateSender.Send(gameStateDto);
     }
     
     private void OnStateChanged(GameStateDto state)
@@ -43,5 +44,10 @@ public class GameFlowController : MonoBehaviour
                 gameManager.SwitchState(gameOverState.GetName());
                 break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        gameStateListener.Disconnect();
     }
 }

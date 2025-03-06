@@ -23,7 +23,7 @@ namespace FirebaseCore.Senders
         public Action<T> OnDataReceived;
         
 #if FIREBASE_WEB
-        protected FirebaseSender(string room)
+        protected FirebaseReader(string room)
         {
             Room = room;
         }
@@ -31,20 +31,21 @@ namespace FirebaseCore.Senders
         protected void Read()
         {
             Receiver receiver = ReceiverManager.Instance.Register(GetType());
-            FirebaseDatabase.ListenForChildChanged($"{Room}/{ChildName}", receiver.Name, receiver.ChildChangedCallback, receiver.FailCallback);
-            FirebaseDatabase.ListenForChildAdded($"{Room}/{ChildName}", receiver.Name, receiver.ChildAddedCallback, receiver.FailCallback);
-            receiver.ChildAdded += HandleValueChanged;
-            receiver.ChildChanged += HandleValueChanged;
-            Receiver receiver = ReceiverManager.Instance.Register(GetType());
             
-            // FirebaseDatabase.UpdateJSON
-            // (
-            //     $"{Room}/{ChildName}",
-            //     json,
-            //     receiver.Name,
-            //     receiver.SuccessCallback,
-            //     receiver.FailCallback
-            // );
+            FirebaseDatabase.GetJSON
+            (
+                $"{Room}/{ChildName}",
+                receiver.Name,
+                receiver.DataFetchedCallback,
+                receiver.FailCallback
+            );
+            
+            receiver.DataFetched += OnDadaFetched;
+        }
+
+        private void OnDadaFetched(string json)
+        {
+            OnDataReceived?.Invoke(JsonConvert.DeserializeObject<T>(json));
         }
 
 #else
