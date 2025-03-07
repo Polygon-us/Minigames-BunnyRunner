@@ -606,7 +606,7 @@ public class TrackManager : MonoBehaviour
     {
         if (!m_IsTutorial)
         {
-            const float increment = 1.5f;
+            const float increment = 3.0f;
             float currentWorldPos = 0.0f;
             int currentLane = Random.Range(0, 3);
 
