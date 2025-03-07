@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Polygonus
-  productName: Fanta Endless Runner
+  productName: Bunny Runner
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -165,7 +165,7 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Android: com.unity.trashdash
-    Standalone: com.Polygonus.Fanta-Endless-Runner
+    Standalone: com.Polygonus.Bunny-Runner
     Tizen: 
     iPhone: 
     tvOS: 
