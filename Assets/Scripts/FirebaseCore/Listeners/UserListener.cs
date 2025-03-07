@@ -24,14 +24,14 @@ namespace FirebaseCore.Listeners
         }
 #else
 
-        protected override void HandleChildChanged(object sender, ChildChangedEventArgs e)
-        {
-            Debug.Log("Child changed/added: " + e.Snapshot.Key + " " + e.Snapshot.Value);
-            
-            // OnDataReceived?.Invoke(ConvertTo<UserDataDto>(e.Snapshot.Value));
-            if (e.Snapshot.Key == nameof(UserDataDto.username))
-                OnDataReceived?.Invoke(new UserDataDto {username = e.Snapshot.Value.ToString()});
-        }
+        // protected override void HandleChildChanged(object sender, ChildChangedEventArgs e)
+        // {
+        //     Debug.Log("Child changed/added: " + e.Snapshot.Key + " " + e.Snapshot.Value);
+        //     
+        //     // OnDataReceived?.Invoke(ConvertTo<UserDataDto>(e.Snapshot.Value));
+        //     if (e.Snapshot.Key == nameof(UserDataDto.username))
+        //         OnDataReceived?.Invoke(new UserDataDto {username = e.Snapshot.Value.ToString()});
+        // }
 
 #endif
         

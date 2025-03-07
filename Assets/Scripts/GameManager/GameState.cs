@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using FirebaseCore.DTOs;
+using FirebaseCore.Listeners;
 using FirebaseCore.Senders;
 using TMPro;
 using UnityEngine.AddressableAssets;
@@ -92,6 +93,7 @@ public class GameState : AState
 
     private LeaderboardSender _leaderboardSender;
     private GameStateSender _gameStateSender;
+    private DirectionListener _directionListener;
     
     private bool isPaused = false;
     
@@ -101,6 +103,9 @@ public class GameState : AState
 
         _leaderboardSender = new LeaderboardSender(roomConfig.roomName);
         _gameStateSender = new GameStateSender(roomConfig.roomName);
+        
+        _directionListener = new DirectionListener(roomConfig.roomName);
+        _directionListener.OnDataReceived += OnDirectionReceived;
         
         m_LifeHearts = new Image[k_MaxLives];
         for (int i = 0; i < k_MaxLives; ++i)
@@ -124,9 +129,16 @@ public class GameState : AState
     {
         canvas.gameObject.SetActive(false);
 
+        _directionListener.Disconnect();
+        
         ClearPowerup();
     }
 
+    private void OnDirectionReceived(UserInputDto input)
+    {
+        trackManager.characterController.OnMovementInput(input.direction);
+    }
+    
     public void StartGame()
     {
         canvas.gameObject.SetActive(true);

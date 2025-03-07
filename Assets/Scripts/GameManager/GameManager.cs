@@ -142,6 +142,7 @@ public abstract class AState : MonoBehaviour
     [HideInInspector]
     public GameManager manager;
     
+    [HideInInspector]
     public RoomConfig roomConfig;
 
     public abstract void Enter(AState from);

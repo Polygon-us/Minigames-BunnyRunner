@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using FirebaseCore.DTOs;
 using FirebaseCore.Listeners;
+using FirebaseCore.Senders;
 using UnityEngine;
 
 /// <summary>
@@ -35,6 +36,7 @@ public class LoadoutState : AState
     protected readonly Quaternion k_FlippedYAxisRotation = Quaternion.Euler (0f, 180f, 0f);
 
     private UserListener userListener;
+    private GameStateSender gameStateSender;
     
     public override void Enter(AState from)
     {
@@ -42,6 +44,8 @@ public class LoadoutState : AState
         
         k_UILayer = LayerMask.NameToLayer("UI");
 
+        gameStateSender = new GameStateSender(roomConfig.roomName);
+        
         userListener = new UserListener(roomConfig.roomName);
         userListener.OnDataReceived += OnDataReceived;
         
@@ -60,6 +64,12 @@ public class LoadoutState : AState
     private void OnDataReceived(UserDataDto userData)
     {
         roomConfig.username = userData.username;
+
+        GameStateDto gameStateDto = new GameStateDto
+        {
+            state = GameStates.Game
+        };
+        gameStateSender.Send(gameStateDto);
     }
 
     public override void Exit(AState to)

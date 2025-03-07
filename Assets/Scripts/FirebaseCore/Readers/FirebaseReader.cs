@@ -29,7 +29,7 @@ namespace FirebaseCore.Senders
             Room = room;
         }
 
-        protected void Read()
+        public virtual void Read()
         {
             Receiver receiver = ReceiverManager.Instance.Register(GetType());
             
@@ -44,9 +44,11 @@ namespace FirebaseCore.Senders
             receiver.DataFetched += OnDadaFetched;
         }
 
-        private void OnDadaFetched(string json)
+        protected virtual void OnDadaFetched(string json)
         {
-            OnDataReceived?.Invoke(JsonConvert.DeserializeObject<T>(json));
+            ReceiverManager.Instance.Unregister(GetType());
+            
+            OnDataReceived?.Invoke(JsonConvert.DeserializeObject<TDto>(json));
         }
 
 #else
