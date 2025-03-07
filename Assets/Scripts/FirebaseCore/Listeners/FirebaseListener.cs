@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using FirebaseCore.Utils;
 using Newtonsoft.Json;
-using System;
 using UnityEngine;
+using System;
 
 #if FIREBASE_WEB
-using FirebaseCore.Receivers;
 using FirebaseWebGL.Scripts.FirebaseBridge;
+using FirebaseCore.Receivers;
 #else
 using Cysharp.Threading.Tasks;
 using Firebase.Database;
@@ -62,7 +63,7 @@ namespace FirebaseCore.Listeners
 
         private void GetReference()
         {
-            Reference = FirebaseDatabase.DefaultInstance.GetReference($"{Room}/{ChildName}");
+            Reference = FirebaseDatabase.DefaultInstance.GetReference($"{Room}");
             
             ListenToChanges();
         }
@@ -73,7 +74,14 @@ namespace FirebaseCore.Listeners
             Reference.ChildChanged += HandleChildChanged;
         }
 
-        protected abstract void HandleChildChanged(object sender, ChildChangedEventArgs e);
+        private void HandleChildChanged(object sender, ChildChangedEventArgs e)
+        {
+            if (e.Snapshot.Key == ChildName)
+                // HandleChildChanged(e.Snapshot.Value.ConvertTo<TDto>());
+                OnDataReceived?.Invoke(e.Snapshot.Value.ConvertTo<TDto>());
+        }
+        
+        // protected abstract void HandleChildChanged(TDto value);
 
         public void Disconnect()
         {

@@ -10,7 +10,7 @@ namespace FirebaseCore.Listeners
 {
     public class DirectionListener : FirebaseListener<UserInputDto>
     {
-        protected override string ChildName { get; set; } = "direction";
+        protected override string ChildName { get; set; } = "movement";
 
         public DirectionListener(string room) : base(room)
         {
@@ -23,12 +23,10 @@ namespace FirebaseCore.Listeners
         }
 #else
 
-        protected override void HandleChildChanged(object sender, ChildChangedEventArgs e)
-        {
-            // OnDataReceived?.Invoke(ConvertTo<UserInputDto>(e.Snapshot.Value));
-            
-            Debug.Log("Child changed/added: " + e.Snapshot.Key + " " + e.Snapshot.Value);
-        }
+        // protected override void HandleChildChanged(UserInputDto data)
+        // {
+        //     OnDataReceived?.Invoke(data);
+        // }
 
 #endif
         

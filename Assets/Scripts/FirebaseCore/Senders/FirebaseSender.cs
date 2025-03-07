@@ -19,6 +19,7 @@ namespace FirebaseCore.Senders
         protected abstract string ChildName { get; set; }
 
 #if FIREBASE_WEB
+        
         protected FirebaseSender(string room)
         {
             Room = room;
@@ -50,7 +51,9 @@ namespace FirebaseCore.Senders
                 receiver.FailCallback
             );
         }
+        
 #else
+
         protected DatabaseReference Reference;
 
         protected FirebaseSender(string room)
@@ -69,6 +72,7 @@ namespace FirebaseCore.Senders
         {
             Reference.RemoveValueAsync();
         }
+        
 #endif
 
         public abstract void Send(T obj);

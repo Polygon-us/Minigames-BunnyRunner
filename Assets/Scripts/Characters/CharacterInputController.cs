@@ -88,6 +88,8 @@ public class CharacterInputController : MonoBehaviour
     protected const float k_TrackSpeedToJumpAnimSpeedRatio = 0.6f;
     protected const float k_TrackSpeedToSlideAnimSpeedRatio = 0.9f;
 
+    
+    
     protected void Awake ()
     {
         m_Premium = new SafeInt(0);
@@ -99,11 +101,6 @@ public class CharacterInputController : MonoBehaviour
 	    moveAction = InputSystem.actions.FindAction("Move");
 	    touchAction = InputSystem.actions.FindAction("Touch");
 	    swipeAction = InputSystem.actions.FindAction("Swipe");
-    }
-
-    private void OnDisable()
-    {
-	    FirebaseConnection.OnMovementInput -= OnMovementInput;
     }
 
     // Cheating functions, use for testing
@@ -141,14 +138,10 @@ public class CharacterInputController : MonoBehaviour
 		characterCollider.Init();
 
 		m_ActiveConsumables.Clear();
-	    
-		FirebaseConnection.OnMovementInput += OnMovementInput;
 	}
 
 	public void End()
 	{
-		FirebaseConnection.OnMovementInput -= OnMovementInput;
-		
         CleanConsumable();
     }
 
@@ -197,7 +190,7 @@ public class CharacterInputController : MonoBehaviour
         return !TrackManager.instance.isTutorial || currentTutorialLevel >= tutorialLevel;
     }
 
-    private void OnMovementInput(int direction)
+    public void OnMovementInput(int direction)
     {
 	    // 1 -> jump
 	    // 2 -> slide
