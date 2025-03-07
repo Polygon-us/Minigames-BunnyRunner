@@ -41,14 +41,6 @@ public class GameOverState : AState
         
     }
 
-    public void GoToLoadout()
-    {
-        trackManager.isRerun = false;
-        LeanTween.delayedCall(0.3f, 
-            () => manager.SwitchState("Loadout")
-        );
-    }
-
     protected void CreditCoins()
 	{
 		PlayerData.instance.Save();

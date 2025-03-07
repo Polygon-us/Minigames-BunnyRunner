@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fdfddad24797441b26b254fee9b949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomConfig: {fileID: 11400000, guid: 53bb5af6883436f4c8f460d9bc831604, type: 2}
   entriesRoot: {fileID: 6807934950046822551}
   playerEntry: {fileID: 4754265133959231964}
 --- !u!114 &2051920146427317750

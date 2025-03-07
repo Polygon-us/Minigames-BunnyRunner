@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.DTOs.Response;
+using FirebaseCore.DTOs;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
@@ -56,13 +56,13 @@ public class HighscoreUI : MonoBehaviour
 		score.fontSizeMax = textSize;
 	}
 
-	public void Initialize(PlayerRankingResponseDto responseDto)
+	public void Initialize(int rank, LeaderboardDto responseDto)
 	{
 		playerName.text = responseDto.username;
-		number.text = responseDto.rank.ToString();
+		number.text = rank.ToString();
 		score.text = responseDto.score.ToString();
 		
-		rank = responseDto.rank;
+		this.rank = rank;
 		
 		OnValidate();
 	}

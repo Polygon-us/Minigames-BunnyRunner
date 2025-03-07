@@ -948,6 +948,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
+    - target: {fileID: 3074919100779928087, guid: 37f1ae65c0e72354abe0f12b7f5f7d31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3448148435507226935, guid: 37f1ae65c0e72354abe0f12b7f5f7d31,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1593,6 +1598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1565788661}
   - component: {fileID: 1565788660}
+  - component: {fileID: 1565788662}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1633,6 +1639,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1565788662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565788658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1b2c20cc48b884bbf3ad296280b1da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1565788660}
+  initialState: {fileID: 1604336716}
+  gameState: {fileID: 1575095332}
+  gameOverState: {fileID: 2064768495}
+  roomConfig: {fileID: 11400000, guid: 53bb5af6883436f4c8f460d9bc831604, type: 2}
 --- !u!1001 &1566162457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7712,6 +7735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOver
       objectReference: {fileID: 0}
+    - target: {fileID: 1528277701539446931, guid: c1f2fb49a94507c45b52369c806a2de8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1897514096760709548, guid: c1f2fb49a94507c45b52369c806a2de8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8107,11 +8135,6 @@ PrefabInstance:
       propertyPath: characterSlot
       value: 
       objectReference: {fileID: 764160786}
-    - target: {fileID: 4755050719301085916, guid: c1f2fb49a94507c45b52369c806a2de8,
-        type: 3}
-      propertyPath: fullLeaderboard
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4775949091395056997, guid: c1f2fb49a94507c45b52369c806a2de8,
         type: 3}
       propertyPath: m_AnchorMax.y
