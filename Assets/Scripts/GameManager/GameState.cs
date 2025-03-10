@@ -130,6 +130,12 @@ public class GameState : AState
         canvas.gameObject.SetActive(false);
 
         _directionListener.Disconnect();
+
+        if (to is LoadoutState)
+        {
+            trackManager.StopMove();
+            trackManager.End();
+        }
         
         ClearPowerup();
     }
@@ -364,8 +370,7 @@ public class GameState : AState
 
 		for (int i = 0; i < 3; ++i)
 		{
-
-			if(trackManager.characterController.currentLife > i)
+			if (trackManager.characterController.currentLife > i)
 			{
 				m_LifeHearts[i].color = Color.white;
 			}

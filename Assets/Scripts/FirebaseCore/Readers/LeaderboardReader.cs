@@ -57,7 +57,8 @@ namespace FirebaseCore.Senders
             Reference.GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 List<LeaderboardDto> data = task.Result.Value.ConvertTo<List<LeaderboardDto>>();
-                
+
+                data = data.Where(entry => entry != null).ToList();
                 data = data.OrderByDescending(entry => entry.score).ToList();
                 
                 OnDataReceived.Invoke(data);

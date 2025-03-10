@@ -183,13 +183,6 @@ public class CharacterInputController : MonoBehaviour
             character.animator.SetBool(s_MovingHash, false);
     }
 
-    protected bool TutorialMoveCheck(int tutorialLevel)
-    {
-        tutorialWaitingForValidation = currentTutorialLevel != tutorialLevel;
-
-        return !TrackManager.instance.isTutorial || currentTutorialLevel >= tutorialLevel;
-    }
-
     public void OnMovementInput(int direction)
     {
 	    // 1 -> jump
@@ -199,17 +192,17 @@ public class CharacterInputController : MonoBehaviour
 	    
 	    switch (direction)
 	    {
-		    case 1 when TutorialMoveCheck(1):
+		    case 1:
 			    Jump();
 			    break;
-		    case 2 when TutorialMoveCheck(2):
+		    case 2:
 			    if (!m_Sliding)
 				    Slide();
 			    break;
-		    case 3 when TutorialMoveCheck(0):
+		    case 3:
 			    ChangeLane(-1);
 			    break;
-		    case 4 when TutorialMoveCheck(0):
+		    case 4:
 			    ChangeLane(1);
 			    break;
 	    }
@@ -226,10 +219,10 @@ public class CharacterInputController : MonoBehaviour
 			{
 				switch (moveValue.x)
 				{
-					case < 0 when TutorialMoveCheck(0):
+					case < 0:
 						ChangeLane(-1);
 						break;
-					case > 0 when TutorialMoveCheck(0):
+					case > 0:
 						ChangeLane(1);
 						break;
 				}
@@ -238,10 +231,10 @@ public class CharacterInputController : MonoBehaviour
 			{
 				switch (moveValue.y)
 				{
-					case > 0 when TutorialMoveCheck(1):
+					case > 0:
 						Jump();
 						break;
-					case < 0 when TutorialMoveCheck(2):
+					case < 0:
 					{
 						if (!m_Sliding)
 							Slide();
@@ -279,16 +272,16 @@ public class CharacterInputController : MonoBehaviour
 				{
 					if (Mathf.Abs(diff.y) > Mathf.Abs(diff.x))
 					{
-						if (TutorialMoveCheck(2) && diff.y < 0)
+						if (diff.y < 0)
 						{
 							Slide();
 						}
-						else if (TutorialMoveCheck(1))
+						else
 						{
 							Jump();
 						}
 					}
-					else if (TutorialMoveCheck(0))
+					else
 					{
 						if (diff.x < 0)
 						{

@@ -1,4 +1,7 @@
-﻿using TMPro;
+﻿using System.Globalization;
+using FirebaseCore.DTOs;
+using FirebaseCore.Senders;
+using TMPro;
 using UnityEngine;
 #if UNITY_ANALYTICS
 using UnityEngine.Analytics;
@@ -16,21 +19,49 @@ public class GameOverState : AState
     
 	public Leaderboard fullLeaderboard;
 
+    [SerializeField] private TMP_Text countDownText;
+    [SerializeField] private int countDown = 5;
+    
+    private GameStateSender gameStateSender;
+    private UserSender userSender;
+
+    private int countDownTween;
+    
     public override void Enter(AState from)
     {
         canvas.gameObject.SetActive(true);
+
+        gameStateSender = new GameStateSender(roomConfig.roomName);
+        userSender = new UserSender(roomConfig.roomName);
         
         fullLeaderboard.Open();
+
+        countDownTween = LeanTween.value(countDown, 0, countDown).setOnUpdate(
+            value => countDownText.text = Mathf.CeilToInt(value).ToString()
+        ).setOnComplete(OnCountDown).uniqueId;
         
 		CreditCoins();
     }
 
 	public override void Exit(AState to)
     {
+        LeanTween.cancel(countDownTween);
+        
         canvas.gameObject.SetActive(false);
         FinishRun();
     }
 
+    private void OnCountDown()
+    {
+        userSender.Delete();
+        
+        GameStateDto gameStateDto = new GameStateDto
+        {
+            state = GameStates.Register
+        };
+        gameStateSender.Send(gameStateDto);
+    }
+    
     public override string GetName()
     {
         return "GameOver";
