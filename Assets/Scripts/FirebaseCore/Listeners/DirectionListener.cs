@@ -19,7 +19,7 @@ namespace FirebaseCore.Listeners
 #if FIREBASE_WEB
         protected override void HandleValueChanged(string data)
         {   
-            Debug.Log(data);
+            
         }
 #else
 

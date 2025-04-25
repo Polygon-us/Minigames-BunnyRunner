@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Firebase.Extensions;
 
 #if FIREBASE_WEB
 using FirebaseCore.Receivers;
 using FirebaseWebGL.Scripts.FirebaseBridge;
 #else
+using Firebase.Extensions;
 using Cysharp.Threading.Tasks;
 using Firebase.Database;
 #endif
