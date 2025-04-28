@@ -128,7 +128,11 @@ mergeInto(LibraryManager.library, {
         try {
 
             firebase.database().ref(parsedPath).on('child_added', function(snapshot) {
-                window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshot.val()));
+                var data = {
+                    key: snapshot.key,
+                    value: snapshot.val()
+                }
+                window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(data));
             });
 
         } catch (error) {
@@ -136,7 +140,7 @@ mergeInto(LibraryManager.library, {
         }
     },
 
-    StopListeningForChildAdded: function(path, parsedObjectName, callback, fallback) {
+    StopListeningForChildAdded: function(path, objectName, callback, fallback) {
         var parsedPath = UTF8ToString(path);
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
@@ -171,7 +175,7 @@ mergeInto(LibraryManager.library, {
         }
     },
 
-    StopListeningForChildChanged: function(path, parsedObjectName, callback, fallback) {
+    StopListeningForChildChanged: function(path, objectName, callback, fallback) {
         var parsedPath = UTF8ToString(path);
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
