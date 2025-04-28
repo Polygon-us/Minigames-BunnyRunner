@@ -3,6 +3,7 @@ using FirebaseCore.Utils;
 using FirebaseCore.DTOs;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Linq;
 
 #if FIREBASE_WEB
 using FirebaseWebGL.Scripts.FirebaseBridge;
@@ -45,6 +46,8 @@ namespace FirebaseCore.Senders
         {
             ReceiverManager.Instance.Unregister(GetType());
             
+            Debug.Log(json);
+            
             List<LeaderboardDto> data = JsonConvert.DeserializeObject<List<LeaderboardDto>>(json);
                   
             string newJson = AddNewEntry(data, _leaderboardDto);
@@ -70,6 +73,8 @@ namespace FirebaseCore.Senders
 
         private static string AddNewEntry(List<LeaderboardDto> data, LeaderboardDto leaderboardDto)
         {
+            data = data.Where(entry => entry != null).ToList();
+
             int index = data.FindIndex(entry => entry.username == leaderboardDto.username);
                 
             if (index != -1)

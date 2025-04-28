@@ -24,27 +24,13 @@ namespace FirebaseCore.Senders
         
 #if FIREBASE_WEB
         
-        public override void Read()
-        {
-            Receiver receiver = ReceiverManager.Instance.Register(GetType());
-
-            FirebaseDatabase.GetJSON
-            (
-                $"{Room}/{ChildName}",
-                receiver.Name,
-                receiver.DataFetchedCallback,
-                receiver.FailCallback
-            );
-            
-            receiver.DataFetched += OnDadaFetched;
-        }
-
         protected override void OnDadaFetched(string json)
         {
             ReceiverManager.Instance.Unregister(GetType());
 
             List<LeaderboardDto> data = JsonConvert.DeserializeObject<List<LeaderboardDto>>(json);
-            
+
+            data = data.Where(entry => entry != null).ToList();
             data = data.OrderByDescending(entry => entry.score).ToList();
             
             OnDataReceived.Invoke(data);
