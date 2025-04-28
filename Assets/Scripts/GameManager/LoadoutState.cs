@@ -1,10 +1,7 @@
-﻿using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
-using System.Collections;
-using FirebaseCore.DTOs;
+﻿using System.Collections.Generic;
 using FirebaseCore.Listeners;
 using FirebaseCore.Senders;
+using FirebaseCore.DTOs;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class LoadoutState : AState
 {
+    [SerializeField] private GameObject character;
+    
     [Header("Char UI")]
     public Canvas canvas;
 
@@ -24,7 +23,6 @@ public class LoadoutState : AState
     [Header("Prefabs")]
     public ConsumableIcon consumableIcon;
 
-    protected GameObject m_Character;
     protected List<int> m_OwnedAccesories = new List<int>();
     protected bool m_IsLoadingCharacter;
 
@@ -58,7 +56,7 @@ public class LoadoutState : AState
             StartCoroutine(MusicPlayer.instance.RestartAllStems());
         }
 
-        Refresh();
+        character.SetActive(true);
     }
 
     private void OnDataReceived(UserDataDto userData)
@@ -76,9 +74,7 @@ public class LoadoutState : AState
     {
         userListener.Disconnect();
         
-        if (m_Character)
-	        // Addressables.ReleaseInstance(m_Character);
-			m_Character.gameObject.SetActive(false);
+        character.SetActive(false);
 
         GameState gs = to as GameState;
 
@@ -93,11 +89,6 @@ public class LoadoutState : AState
         gameObject.SetActive(false);
     }
 
-    public void Refresh()
-    {
-        StartCoroutine(PopulateCharacters());
-    }
-
     public override string GetName()
     {
         return "Loadout";
@@ -105,87 +96,11 @@ public class LoadoutState : AState
 
     public override void Tick()
     {
-        if (m_Character != null)
+        if (character != null)
         {
-            m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
+            character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
         }
 
 		charSelect.gameObject.SetActive(PlayerData.instance.characters.Count > 1);
     }
-
-    public IEnumerator PopulateCharacters()
-    {
-        PlayerData.instance.usedAccessory = -1;
-
-        if (!m_IsLoadingCharacter)
-        {
-            m_IsLoadingCharacter = true;
-            GameObject newChar = null;
-            while (newChar == null)
-            {
-                Character c = CharacterDatabase.GetCharacter(PlayerData.instance.characters[PlayerData.instance.usedCharacter]);
-
-                if (c != null)
-                {
-                    m_OwnedAccesories.Clear();
-                    for (int i = 0; i < c.accessories.Length; ++i)
-                    {
-						// Check which accessories we own.
-                        string compoundName = c.characterName + ":" + c.accessories[i].accessoryName;
-                        if (PlayerData.instance.characterAccessories.Contains(compoundName))
-                        {
-                            m_OwnedAccesories.Add(i);
-                        }
-                    }
-
-                    Vector3 pos = charPosition.transform.position;
-                    if (m_OwnedAccesories.Count > 0)
-                    {
-                        pos.x = k_OwnedAccessoriesCharacterOffset;
-                    }
-                    else
-                    {
-                        pos.x = 0.0f;
-                    }
-                    charPosition.transform.position = pos;
-                    
-                    AsyncOperationHandle op = Addressables.InstantiateAsync(c.characterName);
-                    yield return op;
-                    if (op.Result == null || !(op.Result is GameObject))
-                    {
-                        Debug.LogWarning(string.Format("Unable to load character {0}.", c.characterName));
-                        yield break;
-                    }
-                    newChar = op.Result as GameObject;
-                    Helpers.SetRendererLayerRecursive(newChar, k_UILayer);
-					newChar.transform.SetParent(charPosition, false);
-                    newChar.transform.rotation = k_FlippedYAxisRotation;
-
-                    if (m_Character != null)
-                        Addressables.ReleaseInstance(m_Character);
-
-                    m_Character = newChar;
-
-                    m_Character.transform.localPosition = Vector3.right * 1000;
-                    //animator will take a frame to initialize, during which the character will be in a T-pose.
-                    //So we move the character off screen, wait that initialised frame, then move the character back in place.
-                    //That avoid an ugly "T-pose" flash time
-                    yield return new WaitForEndOfFrame();
-                    m_Character.transform.localPosition = Vector3.zero;
-
-                    SetupAccessory();
-                }
-                else
-                    yield return new WaitForSeconds(1.0f);
-            }
-            m_IsLoadingCharacter = false;
-        }
-	}
-
-    void SetupAccessory()
-    {
-        Character c = m_Character.GetComponent<Character>();
-        c.SetupAccesory(PlayerData.instance.usedAccessory);
-    }
-
 }

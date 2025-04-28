@@ -95,16 +95,6 @@ public class ShopUI : MonoBehaviour
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
-	public void CloseScene()
-	{
-        SceneManager.UnloadSceneAsync("shop");
-	    LoadoutState loadoutState = GameManager.instance.topState as LoadoutState;
-	    if(loadoutState != null)
-        {
-            loadoutState.Refresh();
-        }
-	}
-
 	public void CheatCoin()
 	{
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD

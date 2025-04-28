@@ -15,13 +15,6 @@ public class DataDeleteConfirmation : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Confirm()
-    {
-        PlayerData.NewSave();
-        m_LoadoutState.Refresh();
-        Close();
-    }
-
     public void Deny()
     {
         Close();

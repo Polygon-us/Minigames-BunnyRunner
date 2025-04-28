@@ -34,7 +34,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Polygonus",
         productName: "Bunny Runner",
-        productVersion: "1.0.1",
+        productVersion: "1.0.2",
       };
 
       const container = document.querySelector("#unity-container");
@@ -45,7 +45,6 @@
       const spinner = document.querySelector('.spinner');
       const landscapeMsg = document.querySelector("#landscape-msg");
       var isMobile = 0;
-      var _unityInstance = null;
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -87,8 +86,8 @@
 
       function CheckDevice()
       {
-        if (typeof _unityInstance !== 'undefined' && _unityInstance !== null) {
-            _unityInstance.SendMessage('--Manager--', 'OnDeviceCheck', isMobile);
+        if (typeof window.unityInstance !== 'undefined' && window.unityInstance !== null) {
+            window.unityInstance.SendMessage('--Manager--', 'OnDeviceCheck', isMobile);
         } else {
             console.error("unityInstance is not defined or null");
         }
@@ -106,27 +105,26 @@
           progressBarEmpty.style.display = "";
           progressBarFull.style.width = `${100 * progress}%`;
         }).then((unityInstance) => {
-          _unityInstance = unityInstance;
+          window.unityInstance = unityInstance;
           loadingCover.style.display = "none";
         }).catch((message) => {
           alert(message);
         });
       };
       document.body.appendChild(script);
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-database-compat.js"></script>
-     <script>
-       const firebaseApp = firebase.initializeApp({
-         apiKey: "AIzaSyBBs0Fyx51ef1xmFhn_9ifMzo7zr_J4Zuo",
-         authDomain: "polygonus-fantarunner.firebaseapp.com",
-         databaseURL: "https://polygonus-fantarunner-default-rtdb.firebaseio.com",
-         projectId: "polygonus-fantarunner",
-         storageBucket: "polygonus-fantarunner.firebasestorage.app",
-         messagingSenderId: "181429508314",
-         appId: "1:181429508314:web:1c9d7fb549f39fedcfade3"
-       });
-     </script>
- </html>
+      </script>
+      <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-database-compat.js"></script>
+      <script>
+        const firebaseApp = firebase.initializeApp({
+          apiKey: "AIzaSyBBs0Fyx51ef1xmFhn_9ifMzo7zr_J4Zuo",
+          authDomain: "polygonus-fantarunner.firebaseapp.com",
+          databaseURL: "https://polygonus-fantarunner-default-rtdb.firebaseio.com",
+          projectId: "polygonus-fantarunner",
+          storageBucket: "polygonus-fantarunner.firebasestorage.app",
+          messagingSenderId: "181429508314",
+          appId: "1:181429508314:web:1c9d7fb549f39fedcfade3"
+        });
+      </script>
   </body>
 </html>
